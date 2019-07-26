@@ -34,6 +34,8 @@ namespace HackathonTestAutomation.TestRunner.Forms
             this.grpTestCases = new System.Windows.Forms.GroupBox();
             this.dgvTestCases = new System.Windows.Forms.DataGridView();
             this.grpFilters = new System.Windows.Forms.GroupBox();
+            this.btnExportResults = new System.Windows.Forms.Button();
+            this.btnRunTestCase = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtClass = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
@@ -43,7 +45,6 @@ namespace HackathonTestAutomation.TestRunner.Forms
             this.lblPriority = new System.Windows.Forms.Label();
             this.lblMethod = new System.Windows.Forms.Label();
             this.txtMethod = new System.Windows.Forms.TextBox();
-            this.btnRunTestCase = new System.Windows.Forms.Button();
             this.grpTestCases.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTestCases)).BeginInit();
             this.grpFilters.SuspendLayout();
@@ -74,6 +75,7 @@ namespace HackathonTestAutomation.TestRunner.Forms
             // 
             // grpFilters
             // 
+            this.grpFilters.Controls.Add(this.btnExportResults);
             this.grpFilters.Controls.Add(this.btnRunTestCase);
             this.grpFilters.Controls.Add(this.label1);
             this.grpFilters.Controls.Add(this.txtClass);
@@ -90,6 +92,25 @@ namespace HackathonTestAutomation.TestRunner.Forms
             this.grpFilters.TabIndex = 1;
             this.grpFilters.TabStop = false;
             this.grpFilters.Text = "Filters";
+            // 
+            // btnExportResults
+            // 
+            this.btnExportResults.Location = new System.Drawing.Point(512, 127);
+            this.btnExportResults.Name = "btnExportResults";
+            this.btnExportResults.Size = new System.Drawing.Size(75, 49);
+            this.btnExportResults.TabIndex = 14;
+            this.btnExportResults.Text = "Export Results";
+            this.btnExportResults.UseVisualStyleBackColor = true;
+            this.btnExportResults.Click += new System.EventHandler(this.btnExportResults_Click);
+            // 
+            // btnRunTestCase
+            // 
+            this.btnRunTestCase.Location = new System.Drawing.Point(512, 28);
+            this.btnRunTestCase.Name = "btnRunTestCase";
+            this.btnRunTestCase.Size = new System.Drawing.Size(75, 74);
+            this.btnRunTestCase.TabIndex = 13;
+            this.btnRunTestCase.Text = "Run";
+            this.btnRunTestCase.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -166,15 +187,6 @@ namespace HackathonTestAutomation.TestRunner.Forms
             this.txtMethod.Size = new System.Drawing.Size(135, 22);
             this.txtMethod.TabIndex = 0;
             // 
-            // btnRunTestCase
-            // 
-            this.btnRunTestCase.Location = new System.Drawing.Point(512, 28);
-            this.btnRunTestCase.Name = "btnRunTestCase";
-            this.btnRunTestCase.Size = new System.Drawing.Size(75, 74);
-            this.btnRunTestCase.TabIndex = 13;
-            this.btnRunTestCase.Text = "Run";
-            this.btnRunTestCase.UseVisualStyleBackColor = true;
-            // 
             // TestRunnerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -208,6 +220,7 @@ namespace HackathonTestAutomation.TestRunner.Forms
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtClass;
         private Button btnRunTestCase;
+        private Button btnExportResults;
     }
 }
 

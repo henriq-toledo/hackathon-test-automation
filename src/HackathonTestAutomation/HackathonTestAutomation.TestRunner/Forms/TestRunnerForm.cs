@@ -1,6 +1,7 @@
 ﻿using HackathonTestAutomation.Common.Classes.Attributes;
 using HackathonTestAutomation.Common.Enums;
 using HackathonTestAutomation.TestRunner.Classes.Entities;
+using HackathonTestAutomation.TestRunner.Classes.Reports;
 using HackathonTestAutomation.TestRunner.Classes.Settings;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -23,6 +24,7 @@ namespace HackathonTestAutomation.TestRunner.Forms
             InitializeComponent();
             SetCbxDatasources();
             HandleEvents();
+            PopulateGridView();
         }
 
         private void HandleEvents()
@@ -252,6 +254,12 @@ namespace HackathonTestAutomation.TestRunner.Forms
             }
 
             return testCases;
+        }
+
+        private void btnExportResults_Click(object sender, EventArgs e)
+        {            
+            var excelReport = new ExcelReport();
+            excelReport.Run(dgvTestCases);
         }
     }
 }
