@@ -2,9 +2,10 @@
 using System.Windows.Forms;
 
 namespace HackathonTestAutomation.TestRunner.Classes.Extensions
-{/// <summary>
- /// The <c>DataGridViewRowExtension</c> class has the extension methods of the <c>DataGridViewRow</c> class
- /// </summary>
+{
+    /// <summary>
+    /// The <c>DataGridViewRowExtension</c> class has the extension methods of the <c>DataGridViewRow</c> class
+    /// </summary>
     internal static class DataGridViewRowExtension
     {
         /// <summary>

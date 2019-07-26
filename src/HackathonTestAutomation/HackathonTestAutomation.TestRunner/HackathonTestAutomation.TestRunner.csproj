@@ -54,13 +54,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Entities\BaseTest.cs" />
     <Compile Include="Classes\Entities\TestCase.cs" />
+    <Compile Include="Classes\Entities\TestDefinition.cs" />
+    <Compile Include="Classes\Entities\TestResult.cs" />
+    <Compile Include="Classes\Entities\UnitTestResult.cs" />
     <Compile Include="Classes\Extensions\DataGridViewRowExtension.cs" />
     <Compile Include="Classes\Extensions\StringExtension.cs" />
     <Compile Include="Classes\Extensions\XContainerExtension.cs" />
     <Compile Include="Classes\Extensions\XElementExtension.cs" />
     <Compile Include="Classes\Reports\ExcelReport.cs" />
     <Compile Include="Classes\Settings\AppSettings.cs" />
+    <Compile Include="Classes\TestDiscoverer.cs" />
+    <Compile Include="Classes\TestResultRetriever.cs" />
+    <Compile Include="Classes\TestRunnerClass.cs" />
     <Compile Include="Forms\TestRunnerForm.cs">
       <SubType>Form</SubType>
     </Compile>

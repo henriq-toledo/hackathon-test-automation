@@ -1,48 +1,25 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Drawing;
 
 namespace HackathonTestAutomation.TestRunner.Classes.Entities
 {
-    public class TestCase
+    public abstract class BaseTest
     {
-        public bool Execute { get; set; }
-        public bool Executed { get; set; }
-        public string Name => TestClass + "." + TestMethod;
-        public string Description { get; set; }
-        public string Priority { get; set; }
-        public string Severity { get; set; }
+        public string Name { get; set; }
         public string ExecutionId { get; set; }
         public TimeSpan Duration { get; set; }
         public string Status { get; set; }
         public string ErrorMessage { get; set; }
         public string StackTrace { get; set; }
 
-        [Browsable(false)]
-        public string TestClass { get; set; }
-
-        [Browsable(false)]
-        public string TestMethod { get; set; }
-
-        [Browsable(false)]
-        public string ResultFile { get; internal set; }
-
-        [Browsable(false)]
-        public string AssemblyPath { get; set; }
-
-        public TestCase()
+        public BaseTest()
         {
-            Status = string.Empty;
+            this.Status = string.Empty;
         }
 
-        internal void InitFromTestRestult(TestResult testResult)
+        internal bool IsStatusEmpty()
         {
-            // TODO Name = testResult.Name;
-            ExecutionId = testResult.ExecutionId;
-            Duration = testResult.Duration;
-            Status = testResult.Status;
-            ErrorMessage = testResult.ErrorMessage;
-            StackTrace = testResult.StackTrace;
+            return string.IsNullOrEmpty(this.Status);
         }
 
         internal Color StatusColor

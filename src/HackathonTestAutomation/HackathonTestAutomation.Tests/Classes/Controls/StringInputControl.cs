@@ -50,11 +50,6 @@ namespace HackathonTestAutomation.Tests.Classes.Controls
             return stringInputControl;
         }
 
-        public static StringInputControl<TFormHelper> CreateByXPath(string xPath, TFormHelper formHelper)
-        {
-            var stringInputControl = new StringInputControl<TFormHelper>(By.XPath(xPath), formHelper);
-
-            return stringInputControl;
-        }
+        public static StringInputControl<TFormHelper> CreateByXPath(string xPath, TFormHelper formHelper) => new StringInputControl<TFormHelper>(By.XPath(xPath), formHelper);
     }
 }
