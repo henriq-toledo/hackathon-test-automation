@@ -191,5 +191,29 @@ namespace HackathonTestAutomation.TestRunner.Forms
 
             MessageBox.Show(stringBuilder.ToString(), this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void btnCheckAll_Click(object sender, EventArgs e)
+        {
+            DataGridViewRowCollection rows = dgvTestCases.Rows;
+
+            if (btnCheckAll.Text.Equals("Check All"))
+            {
+                foreach (DataGridViewRow row in rows)
+                {
+                    row.Cells[0].Value = true;
+                }
+
+                btnCheckAll.Text = "Uncheck All";
+            }
+            else
+            {
+                foreach (DataGridViewRow row in rows)
+                {
+                    row.Cells[0].Value = false;
+                }
+
+                btnCheckAll.Text = "Check All";
+            }
+        }
     }
 }
