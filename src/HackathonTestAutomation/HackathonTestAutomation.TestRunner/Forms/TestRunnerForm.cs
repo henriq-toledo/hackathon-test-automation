@@ -261,5 +261,33 @@ namespace HackathonTestAutomation.TestRunner.Forms
             var excelReport = new ExcelReport();
             excelReport.Run(dgvTestCases);
         }
+
+        private void btnCheckAll_Click(object sender, EventArgs e)
+        {
+            DataGridViewRowCollection rows = dgvTestCases.Rows;
+
+            if (btnCheckAll.Text.Equals("Check All"))
+            {
+                foreach (DataGridViewRow row in rows)
+                {
+                    row.Cells[0].Value = true;
+                }
+
+                btnCheckAll.Text = "Uncheck All";
+            }
+            else
+            {
+                foreach (DataGridViewRow row in rows)
+                {
+                    row.Cells[0].Value = false;
+                }
+
+                btnCheckAll.Text = "Check All";
+            }
+
+
+
+
+        }
     }
 }

@@ -45,6 +45,7 @@ namespace HackathonTestAutomation.TestRunner.Forms
             this.lblPriority = new System.Windows.Forms.Label();
             this.lblMethod = new System.Windows.Forms.Label();
             this.txtMethod = new System.Windows.Forms.TextBox();
+            this.btnCheckAll = new System.Windows.Forms.Button();
             this.grpTestCases.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTestCases)).BeginInit();
             this.grpFilters.SuspendLayout();
@@ -75,6 +76,7 @@ namespace HackathonTestAutomation.TestRunner.Forms
             // 
             // grpFilters
             // 
+            this.grpFilters.Controls.Add(this.btnCheckAll);
             this.grpFilters.Controls.Add(this.btnExportResults);
             this.grpFilters.Controls.Add(this.btnRunTestCase);
             this.grpFilters.Controls.Add(this.label1);
@@ -95,7 +97,7 @@ namespace HackathonTestAutomation.TestRunner.Forms
             // 
             // btnExportResults
             // 
-            this.btnExportResults.Location = new System.Drawing.Point(512, 127);
+            this.btnExportResults.Location = new System.Drawing.Point(607, 127);
             this.btnExportResults.Name = "btnExportResults";
             this.btnExportResults.Size = new System.Drawing.Size(75, 49);
             this.btnExportResults.TabIndex = 14;
@@ -105,7 +107,7 @@ namespace HackathonTestAutomation.TestRunner.Forms
             // 
             // btnRunTestCase
             // 
-            this.btnRunTestCase.Location = new System.Drawing.Point(512, 28);
+            this.btnRunTestCase.Location = new System.Drawing.Point(607, 33);
             this.btnRunTestCase.Name = "btnRunTestCase";
             this.btnRunTestCase.Size = new System.Drawing.Size(75, 74);
             this.btnRunTestCase.TabIndex = 13;
@@ -187,6 +189,16 @@ namespace HackathonTestAutomation.TestRunner.Forms
             this.txtMethod.Size = new System.Drawing.Size(135, 22);
             this.txtMethod.TabIndex = 0;
             // 
+            // btnCheckAll
+            // 
+            this.btnCheckAll.Location = new System.Drawing.Point(472, 40);
+            this.btnCheckAll.Name = "btnCheckAll";
+            this.btnCheckAll.Size = new System.Drawing.Size(88, 46);
+            this.btnCheckAll.TabIndex = 15;
+            this.btnCheckAll.Text = "Check All";
+            this.btnCheckAll.UseVisualStyleBackColor = true;
+            this.btnCheckAll.Click += new System.EventHandler(this.btnCheckAll_Click);
+            // 
             // TestRunnerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -221,6 +233,7 @@ namespace HackathonTestAutomation.TestRunner.Forms
         private System.Windows.Forms.TextBox txtClass;
         private Button btnRunTestCase;
         private Button btnExportResults;
+        private Button btnCheckAll;
     }
 }
 
