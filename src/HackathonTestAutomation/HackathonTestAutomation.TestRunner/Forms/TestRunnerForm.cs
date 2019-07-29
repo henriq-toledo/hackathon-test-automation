@@ -1,13 +1,12 @@
-﻿using HackathonTestAutomation.Common.Enums;
+﻿using HackathonTestAutomation.Common.Classes.Helpers;
+using HackathonTestAutomation.Common.Enums;
 using HackathonTestAutomation.TestRunner.Classes;
 using HackathonTestAutomation.TestRunner.Classes.Entities;
 using HackathonTestAutomation.TestRunner.Classes.Extensions;
 using HackathonTestAutomation.TestRunner.Classes.Reports;
-using HackathonTestAutomation.TestRunner.Classes.Settings;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -45,8 +44,7 @@ namespace HackathonTestAutomation.TestRunner.Forms
         public TestRunnerForm()
         {
             InitializeComponent();
-            SetCbxDatasources();
-            HandleEvents();
+            InitializeFilterValues();
             InitializeGrid();
         }
 
@@ -55,9 +53,9 @@ namespace HackathonTestAutomation.TestRunner.Forms
         /// </summary>
         private void InitializeGrid()
         {
-            var testDiscoverer = new TestDiscoverer();            
+            var testDiscoverer = new TestDiscoverer();
             this.TestCases = testDiscoverer.GetTests();
-            
+
             this.TestCases = this.TestCases.OrderBy(t => t.Priority).ThenBy(p => p.Severity).ToList();
             this.TestCasesRows = this.TestCases;
         }
@@ -86,13 +84,7 @@ namespace HackathonTestAutomation.TestRunner.Forms
             // TODO grbTestMethods.Text = string.Format($"Test methods ({this.TestMethodRows.Count})");
         }
 
-        private void HandleEvents()
-        {
-            btnSearch.Click += BtnSearch_Click;            
-            btnRunTestCase.Click += BtnRunTestCase_Click;
-        }
-
-        private void BtnRunTestCase_Click(object sender, EventArgs e)
+        private void btnRunTestCase_Click(object sender, EventArgs e)
         {
             var testMethods = this.TestCasesRows;
             var testMethodsToBeExecuted = testMethods.Where(t => t.Execute).ToArray();
@@ -111,44 +103,39 @@ namespace HackathonTestAutomation.TestRunner.Forms
 
             this.ShowFinishExecutionMessageBox(testMethodsToBeExecuted);
         }
-   
-        private void BtnSearch_Click(object sender, EventArgs e)
+
+        private void InitializeFilterValues()
         {
-            // TODO filter
+            this.InitializeComboBox<PriorityEnum>(cbxPriority);
+            this.InitializeComboBox<SeverityEnum>(cbxSeverity);
         }
 
-        private void SetCbxDatasources()
+        private void InitializeComboBox<TEnum>(ComboBox control) where TEnum : struct
         {
-            List<string> priorityList = new List<string>();
-            List<string> severityList = new List<string>();
-
-            priorityList.Add("");
-            severityList.Add("");
-
-            foreach (PriorityEnum item in Enum.GetValues(typeof(PriorityEnum)))
+            void AddItem(string key, TEnum? value)
             {
-                priorityList.Add(item.GetDescription());
+                control.Items.Add(new KeyValuePair<string, TEnum?>(key, value));
             }
 
-            foreach (SeverityEnum item in Enum.GetValues(typeof(SeverityEnum)))
+            AddItem(string.Empty, null);
+
+            foreach (TEnum enumValue in Enum.GetValues(typeof(TEnum)))
             {
-                severityList.Add(item.GetDescription());
+                var descriptionAttribute = EnumHelper.GetDescriptionAttributeValue(enumValue);
+
+                AddItem(descriptionAttribute, enumValue);
             }
 
-            cbxPriority.SelectedIndex = -1;
-            cbxSeverity.SelectedIndex = -1;
-
-            cbxSeverity.SelectedItem = 0;
-
-            cbxPriority.DataSource = priorityList;
-            cbxSeverity.DataSource = severityList;
+            control.DisplayMember = "Key";
+            control.ValueMember = "Value";
+            control.SelectedIndex = -1;
         }
 
         private IEnumerable<TestCase> GetTestCasesToRun()
         {
             var testCasesToRun = dgvTestCases.Rows;
             var testCases = new List<TestCase>();
-            
+
             foreach (DataGridViewRow tc in testCasesToRun)
             {
                 var testCase = (TestCase)tc.DataBoundItem;
@@ -162,8 +149,8 @@ namespace HackathonTestAutomation.TestRunner.Forms
             return testCases;
         }
 
-        private void btnExportResults_Click(object sender, EventArgs e)
-        {            
+        private void btnExcel_Click(object sender, EventArgs e)
+        {
             var excelReport = new ExcelReport();
             excelReport.Run(dgvTestCases);
         }
@@ -194,26 +181,47 @@ namespace HackathonTestAutomation.TestRunner.Forms
 
         private void btnCheckAll_Click(object sender, EventArgs e)
         {
-            DataGridViewRowCollection rows = dgvTestCases.Rows;
-
-            if (btnCheckAll.Text.Equals("Check All"))
+            foreach (DataGridViewRow row in dgvTestCases.Rows)
             {
-                foreach (DataGridViewRow row in rows)
-                {
-                    row.Cells[0].Value = true;
-                }
-
-                btnCheckAll.Text = "Uncheck All";
+                row.Cells[0].Value = true;
             }
-            else
+        }
+
+        private void btnUncheckAll_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dgvTestCases.Rows)
             {
-                foreach (DataGridViewRow row in rows)
-                {
-                    row.Cells[0].Value = false;
-                }
-
-                btnCheckAll.Text = "Check All";
+                row.Cells[0].Value = false;
             }
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            txtName.Clear();
+            cbxPriority.ResetText();
+            cbxSeverity.ResetText();
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            var query = this.TestCases.AsEnumerable();
+
+            if (txtName.Text == string.Empty == false)
+            {
+                query = query.Where(testCase => testCase.Name.ToLower().Contains(txtName.Text.ToLower()));
+            }
+
+            if (cbxPriority.Text == string.Empty == false)
+            {
+                query = query.Where(testCase => testCase.Priority == cbxPriority.Text);
+            }
+
+            if (cbxSeverity.Text == string.Empty == false)
+            {
+                query = query.Where(testCase => testCase.Severity == cbxSeverity.Text);
+            }
+
+            this.TestCasesRows = query.ToList();
         }
     }
 }

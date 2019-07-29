@@ -28,19 +28,19 @@ namespace HackathonTestAutomation.TestRunner.Classes
 
             var targetAssembly = Assembly.LoadFile(assemblyPath);
 
-            List<TestCase> testCases = new List<TestCase>();
+            var testCases = new List<TestCase>();
 
             var types = targetAssembly.GetTypes();
 
             foreach (var classType in types)
             {
-                var classCustomAttrs = classType.CustomAttributes;
+                var customAttributes = classType.CustomAttributes;
 
-                foreach (var attr in classCustomAttrs)
+                foreach (var customAttribute in customAttributes)
                 {
-                    if (attr.AttributeType == typeof(TestClassAttribute))
+                    if (customAttribute.AttributeType == typeof(TestClassAttribute))
                     {
-                        List<MethodInfo> methods = new List<MethodInfo>();
+                        var methods = new List<MethodInfo>();
 
                         var reflectedMethods = classType.GetMethods().Where(a => a.GetCustomAttribute(typeof(TestMethodAttribute)) != null);
 
@@ -49,7 +49,7 @@ namespace HackathonTestAutomation.TestRunner.Classes
                         foreach (var method in methods)
                         {
                             var defectAttribute = (DefectAttribute)method.GetCustomAttribute(typeof(DefectAttribute));
-                            TestCase tc = new TestCase()
+                            var testCase = new TestCase()
                             {
                                 TestClass = classType.FullName,
                                 TestMethod = method.Name,
@@ -59,7 +59,7 @@ namespace HackathonTestAutomation.TestRunner.Classes
                                 AssemblyPath = assemblyPath
                             };
 
-                            testCases.Add(tc);
+                            testCases.Add(testCase);
                         }
                     }
                 }

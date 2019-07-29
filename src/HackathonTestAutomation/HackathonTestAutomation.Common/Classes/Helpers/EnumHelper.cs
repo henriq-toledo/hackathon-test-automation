@@ -11,21 +11,6 @@ namespace HackathonTestAutomation.Common.Classes.Helpers
     public static class EnumHelper
     {
         /// <summary>
-        /// Gets the description from the description attribute
-        /// </summary>
-        /// <typeparam name="TEnum">The enum type</typeparam>
-        /// <param name="value">The enum value</param>
-        /// <returns>The description from the description attribute</returns>
-        public static string GetDescriptionAttributeValue<TEnum>(TEnum value) where TEnum : struct
-        {
-            var member = typeof(TEnum).GetMember($"{value}");
-            var attributes = member.FirstOrDefault().GetCustomAttributes(typeof(DescriptionAttribute), false);
-            var description = ((DescriptionAttribute)attributes[0]).Description;
-
-            return description;
-        }
-
-        /// <summary>
         /// Gets the enum values
         /// </summary>
         /// <typeparam name="TEnum">The enum type</typeparam>
@@ -42,6 +27,36 @@ namespace HackathonTestAutomation.Common.Classes.Helpers
             }
 
             return dictionary;
+        }
+
+        /// <summary>
+        /// Gets the description from the description attribute
+        /// </summary>
+        /// <typeparam name="TEnum">The enum type</typeparam>
+        /// <param name="enumValue">The enum value</param>
+        /// <returns>The description from the description attribute</returns>
+        public static string GetDescriptionAttributeValue<TEnum>(TEnum enumValue)
+            where TEnum : struct
+        {
+            var descriptionAttribute = GetCustomAttributes<TEnum, DescriptionAttribute>(enumValue).FirstOrDefault();
+
+            if (descriptionAttribute == null)
+            {
+                throw new Exception($"The {typeof(TEnum).ToString()}.{enumValue.ToString()} enum value does not have the DescriptionAttribute attribute.");
+            }
+
+            return descriptionAttribute.Description;
+        }
+
+        private static TAttribute[] GetCustomAttributes<TEnum, TAttribute>(TEnum enumValue)
+            where TEnum : struct
+            where TAttribute : Attribute
+        {
+            var customAttributes = typeof(TEnum).GetMember(enumValue.ToString())
+                    .FirstOrDefault()
+                    .GetCustomAttributes(typeof(TAttribute), false);
+
+            return (TAttribute[])customAttributes;
         }
     }
 }

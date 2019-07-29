@@ -1,4 +1,7 @@
-﻿namespace HackathonTestAutomation.Common.Enums
+﻿using HackathonTestAutomation.Common.Classes.Helpers;
+using System.ComponentModel;
+
+namespace HackathonTestAutomation.Common.Enums
 {
     /// <summary>
     /// The <c>PriorityEnum</c> enum represents the priority of a defect
@@ -8,16 +11,19 @@
         /// <summary>
         /// 1 - High
         /// </summary>
+        [Description("1 - High")]
         High = 1,
 
         /// <summary>
         /// 2 - Medium
         /// </summary>
+        [Description("2 - Medium")]
         Medium = 2,
 
         /// <summary>
         /// 3 - Low
         /// </summary>
+        [Description("3 - Low")]
         Low = 3
     }
 
@@ -33,22 +39,7 @@
         /// <returns>The enum value description</returns>
         public static string GetDescription(this PriorityEnum priority)
         {
-            var description = string.Empty;
-
-            switch (priority)
-            {
-                case PriorityEnum.High:
-                    description = $"{priority.GetHashCode()} - High";
-                    break;
-                case PriorityEnum.Medium:
-                    description = $"{priority.GetHashCode()} - Medium";
-                    break;
-                case PriorityEnum.Low:
-                    description = $"{priority.GetHashCode()} - Low";
-                    break;
-            }
-
-            return description;
+            return EnumHelper.GetDescriptionAttributeValue(priority);
         }
     }
 }

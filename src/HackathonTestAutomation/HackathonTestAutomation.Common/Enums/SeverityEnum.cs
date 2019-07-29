@@ -1,25 +1,32 @@
-﻿namespace HackathonTestAutomation.Common.Enums
+﻿using HackathonTestAutomation.Common.Classes.Helpers;
+using System.ComponentModel;
+
+namespace HackathonTestAutomation.Common.Enums
 {
     public enum SeverityEnum
     {
         /// <summary>
         /// 1 - Critical
         /// </summary>
+        [Description("1 - Critical")]
         Critical = 1,
 
         /// <summary>
         /// 2 - Major
         /// </summary>
+        [Description("2 - Major")]
         Major = 2,
 
         /// <summary>
         /// 3 - Moderate
         /// </summary>
+        [Description("3 - Moderate")]
         Moderate = 3,
 
         /// <summary>
         /// 4 - Minor
         /// </summary>
+        [Description("4 - Minor")]
         Minor = 4
     }
 
@@ -27,25 +34,7 @@
     {
         public static string GetDescription(this SeverityEnum severity)
         {
-            var description = string.Empty;
-
-            switch (severity)
-            {
-                case SeverityEnum.Critical:
-                    description = $"{severity.GetHashCode()} - Critical";
-                    break;
-                case SeverityEnum.Major:
-                    description = $"{severity.GetHashCode()} - Major";
-                    break;
-                case SeverityEnum.Moderate:
-                    description = $"{severity.GetHashCode()} - Moderate";
-                    break;
-                case SeverityEnum.Minor:
-                    description = $"{severity.GetHashCode()} - Minor";
-                    break;
-            }
-
-            return description;
+            return EnumHelper.GetDescriptionAttributeValue(severity);
         }
     }
 }
