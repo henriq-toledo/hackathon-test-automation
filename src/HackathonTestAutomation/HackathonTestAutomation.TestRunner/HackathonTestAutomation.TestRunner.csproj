@@ -59,6 +59,7 @@
     <Compile Include="Classes\Entities\TestDefinition.cs" />
     <Compile Include="Classes\Entities\TestResult.cs" />
     <Compile Include="Classes\Entities\UnitTestResult.cs" />
+    <Compile Include="Classes\Extensions\ComboBoxExtension.cs" />
     <Compile Include="Classes\Extensions\DataGridViewRowExtension.cs" />
     <Compile Include="Classes\Extensions\StringExtension.cs" />
     <Compile Include="Classes\Extensions\XContainerExtension.cs" />

@@ -81,7 +81,7 @@ namespace HackathonTestAutomation.TestRunner.Forms
         /// </summary>
         private void UpdateTestMethodsCount()
         {
-            // TODO grbTestMethods.Text = string.Format($"Test methods ({this.TestMethodRows.Count})");
+            grpTestCases.Text = string.Format($"Test cases ({this.TestCasesRows.Count}/{this.TestCases.Count})");
         }
 
         private void btnRunTestCase_Click(object sender, EventArgs e)
@@ -106,47 +106,8 @@ namespace HackathonTestAutomation.TestRunner.Forms
 
         private void InitializeFilterValues()
         {
-            this.InitializeComboBox<PriorityEnum>(cbxPriority);
-            this.InitializeComboBox<SeverityEnum>(cbxSeverity);
-        }
-
-        private void InitializeComboBox<TEnum>(ComboBox control) where TEnum : struct
-        {
-            void AddItem(string key, TEnum? value)
-            {
-                control.Items.Add(new KeyValuePair<string, TEnum?>(key, value));
-            }
-
-            AddItem(string.Empty, null);
-
-            foreach (TEnum enumValue in Enum.GetValues(typeof(TEnum)))
-            {
-                var descriptionAttribute = EnumHelper.GetDescriptionAttributeValue(enumValue);
-
-                AddItem(descriptionAttribute, enumValue);
-            }
-
-            control.DisplayMember = "Key";
-            control.ValueMember = "Value";
-            control.SelectedIndex = -1;
-        }
-
-        private IEnumerable<TestCase> GetTestCasesToRun()
-        {
-            var testCasesToRun = dgvTestCases.Rows;
-            var testCases = new List<TestCase>();
-
-            foreach (DataGridViewRow tc in testCasesToRun)
-            {
-                var testCase = (TestCase)tc.DataBoundItem;
-
-                if (testCase.Execute == true)
-                {
-                    testCases.Add(testCase);
-                }
-            }
-
-            return testCases;
+            cbxPriority.Initialize<PriorityEnum>();
+            cbxSeverity.Initialize<SeverityEnum>();
         }
 
         private void btnExcel_Click(object sender, EventArgs e)
